@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "613108902255",
+    "firebase_url": "https://namaz-f637a.firebaseio.com",
+    "project_id": "namaz-f637a",
+    "storage_bucket": "namaz-f637a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613108902255:android:3721dc22c4bc4e6d0ae09a",
+        "android_client_info": {
+          "package_name": "com.example.namaz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613108902255-mbaeiiakn6lmfel42e24ds8thh7ac95a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjFxfloD2PxrUU9rBFtap5YJ4XkLlxw4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613108902255-mbaeiiakn6lmfel42e24ds8thh7ac95a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
