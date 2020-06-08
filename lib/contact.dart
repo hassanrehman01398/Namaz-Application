@@ -21,11 +21,11 @@ class ContactTab extends StatelessWidget {
               SizedBox(
                 height: 2,
               ),
-              Text(
-                'Muhammad Hasan Ur Rehman',
-                textScaleFactor: 4,
-              ),
-              // SizedBox(
+              // Text(
+              //   'Muhammad Hasan Ur Rehman',
+              //   textScaleFactor: 4,
+              // ),
+              // // SizedBox(
               //   height: 2,
               // ),
               // Text(

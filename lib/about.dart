@@ -18,20 +18,20 @@ class AboutTab extends StatelessWidget {
                 radius: 100,
                 backgroundImage: Image.asset(Assets.hassan).image,
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Muhammad Hasan Ur Rehman',
-                textScaleFactor: 4,
-              ),
-              SizedBox(
-                height: 20,
-              ),
+              //SizedBox(
+                //height: 20,
+              //),
+              //Text(
+             //   'Muhammad Hasan Ur Rehman',
+           //     textScaleFactor: 4,
+         //     ),
+              //SizedBox(
+               // height: 20,
+              //),
               Text(
                   'Android. Flutter. Dotnet. Python. Web. Desktop Applications. Cricket. Music.\nLikes Traveling.',
-                  style: Theme.of(context).textTheme.caption,
-                  textScaleFactor: 2,
+                  //style: Theme.of(context).textTheme.button,
+                  textScaleFactor: .5,
                   textAlign: TextAlign.center,
                 ),
               SizedBox(
