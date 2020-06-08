@@ -13,7 +13,9 @@ import 'package:namaz/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:intl/intl.dart';
 import 'package:namaz/setting.dart';
+import 'about.dart';
 import 'bloc/prayer_time_bloc/prayer_time_state.dart';
+import 'contact.dart';
 import 'res/colors.dart';
 import 'package:hijri/umm_alqura_calendar.dart';
 import 'package:hijri_picker/hijri_picker.dart';
@@ -617,7 +619,11 @@ class _HomeViewState extends State<HomeView> {
               ),
 
               InkWell(
-                onTap: () {},
+                onTap: () {
+       Navigator.push(context, MaterialPageRoute(builder: (context) => new AboutTab()));
+           
+
+                },
                 child: ListTile(
                   title: Text('About Us'),
                   leading: Icon(Icons.account_box, color: Colors.black,),
@@ -625,7 +631,11 @@ class _HomeViewState extends State<HomeView> {
               ),
 
               InkWell(
-                onTap: () {},
+                onTap: () {
+       Navigator.push(context, MaterialPageRoute(builder: (context) => new ContactTab()));
+           
+
+                },
                 child: ListTile(
                   title: Text('Contact Us'),
                   leading: Icon(Icons.mail, color: Colors.black,),
