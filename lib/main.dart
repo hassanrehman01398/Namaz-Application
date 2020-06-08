@@ -16,6 +16,7 @@ import 'bloc/prayer_time_bloc/prayer_time_bloc.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
+  
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(

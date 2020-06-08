@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
+import 'package:hijri_picker/hijri_picker.dart';
 import 'package:namaz/donate.dart';
+import 'package:namaz/dua.dart';
 import 'package:namaz/event.dart';
 import 'package:namaz/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,6 +15,9 @@ import 'package:intl/intl.dart';
 import 'package:namaz/setting.dart';
 import 'bloc/prayer_time_bloc/prayer_time_state.dart';
 import 'res/colors.dart';
+import 'package:hijri/umm_alqura_calendar.dart';
+import 'package:hijri_picker/hijri_picker.dart';
+
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'bloc/location_bloc/location_bloc.dart';
@@ -27,6 +32,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    
+  ummAlquraCalendar selectedDate = new ummAlquraCalendar.now();
   final List<Notification> notifications = [];
    PrayerTimeBloc _prayerTimeBloc;
   LocationBloc _locationBloc;
@@ -338,7 +345,7 @@ class _HomeViewState extends State<HomeView> {
                         children: <Widget>[
                           Card(
                             child: InkWell(
-                              onTap: () => _showDatePicker,
+                              onTap: () => _selectDate(context),
                               child: Padding(
                                 padding: EdgeInsets.all(8),
                                 child: Column(
@@ -353,7 +360,9 @@ class _HomeViewState extends State<HomeView> {
                                           .format(DateTime.now()),
                                       style: TextStyle(fontSize: 20),
                                       textAlign: TextAlign.center,
+                                    
                                     )
+                                  
                                   ],
                                 ),
                               ),
@@ -624,7 +633,10 @@ class _HomeViewState extends State<HomeView> {
               ),
 
               InkWell(
-                onTap: () {},
+                onTap: () {
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => DuaPage()));
+               
+                },
                 child: ListTile(
                   title: Text('Duas'),
                   leading: Icon(Icons.star_half, color: Colors.black,),
@@ -671,22 +683,46 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  void _showDatePicker() {
-    DatePicker.showDatePicker(this.context,
-        pickerTheme: DateTimePickerTheme(
-          backgroundColor: AppColors.neutral,
-          confirm: Icon(Icons.check, color: AppColors.qiblaBlue),
-          cancel: Icon(
-            Icons.clear,
-            color: Colors.orangeAccent,
-          ),
-        ),
-        initialDateTime: DateTime.now(), onConfirm: (day, List<int> index) {
-      _prayerTimeBloc.add(PrayerTimeFetch(day, _location));
+  // void _showDatePicker() {
+  //   print("hassan");
+  //   //     DatePicker.showDatePicker(this.context,
+  //   //     pickerTheme: DateTimePickerTheme(
+  //   //       backgroundColor: AppColors.neutral,
+  //   //       confirm: Icon(Icons.check, color: AppColors.qiblaBlue),
+  //   //       cancel: Icon(
+  //   //         Icons.clear,
+  //   //         color: Colors.orangeAccent,
+  //   //       ),
+  //   //     ),
+  //   //     initialDateTime: DateTime.now(), onConfirm: (day, List<int> index) {
+  //   //   _prayerTimeBloc.add(PrayerTimeFetch(day, _location));
+  //   // });
+ 
+ 
+  // }
+  
+  Future<Null> _selectDate(BuildContext context) async {
+    final ummAlquraCalendar picked = await showHijriDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      lastDate: new ummAlquraCalendar()
+        ..hYear = 1442
+        ..hMonth = 9
+        ..hDay = 25,
+      firstDate: new ummAlquraCalendar()
+        ..hYear = 1438
+        ..hMonth = 12
+        ..hDay = 25,
+      initialDatePickerMode: DatePickerMode.day,
+    );
+    print(picked);
+    if (picked != null) setState(() {
+      selectedDate = picked;
     });
   }
-
 }
+
+
  Widget buildNotification(Notification notification) {
     return ListTile(
       title: Text(
