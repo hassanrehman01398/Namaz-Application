@@ -13,6 +13,8 @@
 *.iml
 *.ipr
 *.iws
+*.gpg
+*.tar
 .idea/
 
 # The .vscode folder contains launch configuration and tasks you configure in
@@ -41,4 +43,3 @@ app.*.map.json
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-/flutter/namaz/android/app/secrets.tar.gpg
