@@ -30,10 +30,12 @@ class AboutTab extends StatelessWidget {
               //),
               Text(
                   'Android. Flutter. Dotnet. Python. Web. Desktop Applications. Cricket. Music.\nLikes Traveling.',
-                  //style: Theme.of(context).textTheme.button,
+                  
+                  
                   textScaleFactor: .5,
                   textAlign: TextAlign.center,
                 ),
+                
               SizedBox(
                 height: 40,
               ),
