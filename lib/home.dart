@@ -10,6 +10,7 @@ import 'package:namaz/calendarpage.dart';
 import 'package:namaz/donate.dart';
 import 'package:namaz/dua.dart';
 import 'package:namaz/event.dart';
+import 'package:namaz/notification.dart';
 import 'package:namaz/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:intl/intl.dart';
@@ -586,7 +587,7 @@ class _HomeViewState extends State<HomeView> {
                 iconSize: 50,
                 color: Colors.white,
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Service()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Notification1()));
                 },
               ),
             ),
@@ -629,15 +630,15 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
 
-              // InkWell(
-              //   onTap: () {
-              //     Navigator.push(context, MaterialPageRoute(builder: (context) => new Event()));
-              //   },
-              //   child: ListTile(
-              //     title: Text('Events'),
-              //     leading: Icon(Icons.event, color: Colors.black,),
-              //   ),
-              // ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Event()));
+                },
+                child: ListTile(
+                  title: Text('Events'),
+                  leading: Icon(Icons.event, color: Colors.black,),
+                ),
+              ),
 
               // InkWell(
               //   onTap: () {
@@ -694,7 +695,11 @@ class _HomeViewState extends State<HomeView> {
               // ),
 
               InkWell(
-                onTap: () {},
+                onTap: () {
+ Navigator.push(context, MaterialPageRoute(builder: (context) => Notification1()));
+               
+
+                },
                 child: ListTile(
                   title: Text('Announcements'),
                   leading: Icon(Icons.message, color: Colors.black,),

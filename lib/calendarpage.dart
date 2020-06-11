@@ -10,9 +10,10 @@ final Map<DateTime, List> _holidays = {
 };
 
 class CalendarPage extends StatefulWidget {
-  CalendarPage({Key key, this.title}) : super(key: key);
+  CalendarPage({Key key, this.title,this.now}) : super(key: key);
 
   final String title;
+  final DateTime now;
 
   @override
   _CalendarPageState createState() => _CalendarPageState();
@@ -27,7 +28,22 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    final _selectedDay = DateTime.now();
+     var _selectedDay =DateTime.now();
+    if(widget.now==null){
+   _selectedDay = DateTime.now();
+  print("usman");
+  print(DateTime.now());
+   print(widget.now);
+    }
+    else{
+      
+print("hassan");
+     
+  print(DateTime.now());
+     print(widget.now);
+
+_selectedDay =widget.now;
+    }
 
     _events = {
       _selectedDay.subtract(Duration(days: 30)): ['Event A0', 'Event B0', 'Event C0'],
@@ -67,6 +83,10 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
 
   void _onDaySelected(DateTime day, List events) {
     print('CALLBACK: _onDaySelected');
+    print(day);
+    if(widget.now!=null){
+      day=widget.now;
+    }
     setState(() {
       _selectedEvents = events;
     });
@@ -78,6 +98,10 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
 
   void _onCalendarCreated(DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onCalendarCreated');
+    //  if(widget.now!=null){
+    //    print(first);
+    //   first=widget.now;
+    // }
   }
 
   @override
@@ -104,6 +128,12 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
 
   // Simple TableCalendar configuration (using Styles)
   Widget _buildTableCalendar() {
+    print("usman1");
+    DateTime dt=DateTime.now();
+    if(widget.now!=null){
+dt=widget.now;
+
+    }
     return TableCalendar(
       calendarController: _calendarController,
       events: _events,
@@ -122,7 +152,7 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
-      
+    initialSelectedDay: dt,
       onDaySelected:_onDaySelected,// _onDaySelected,
       onVisibleDaysChanged: _onVisibleDaysChanged,
       onCalendarCreated: _onCalendarCreated,
@@ -131,6 +161,7 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
 
   // More advanced TableCalendar configuration (using Builders & Styles)
   Widget _buildTableCalendarWithBuilders() {
+  
     return TableCalendar(
       locale: 'pl_PL',
       calendarController: _calendarController,
@@ -175,6 +206,9 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
         },
       
         todayDayBuilder: (context, date, _) {
+          // print("hum");
+          // print(date);
+          // date=widget.now;
           return Container(
             margin: const EdgeInsets.all(4.0),
             padding: const EdgeInsets.only(top: 5.0, left: 6.0),
@@ -224,6 +258,7 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
   }
 
   Widget _buildEventsMarker(DateTime date, List events) {
+    print("mustafaa");
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(

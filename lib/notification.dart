@@ -18,13 +18,13 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'calendarpage.dart';
-class Event extends StatefulWidget {
+class Notification1 extends StatefulWidget {
   @override
-  _EventState createState() => new _EventState();
+  _NotificationState createState() => new _NotificationState();
 }
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-class _EventState extends State<Event> {
+class _NotificationState extends State<Notification1> {
   // List tracks = ["one", "track1", "track2", "track3", "track4"]; // note: each track button should now be rendered based on tracks within within Firebase database/Firestore 
 
   @override
@@ -103,44 +103,49 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         
-                                        Text(document['eventName'],
-                                      
+                                        Text(document['notificationName'],
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold)
                                         ),
-                                        Card(
-                            child: InkWell(
-                              onTap: () {
-                               Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => CalendarPage(title:"Calendar",now:DateTime.parse(document['eventDate'].toDate().toString())),
-                               ));
-  }
-                              ,
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.event,
-                                      color: AppColors.qiblaBlue,
-                                      size: ScreenUtil().setHeight(72),
-                                    ),
+                                         Text(document['notificationDescription'],
+                                       style: TextStyle(fontSize: 25)
+                                     
+                                        ),
+  //                                       Card(
+  //                           child: InkWell(
+  //                             onTap: () {
+  //                              Navigator.push(
+  //   context,
+  //   MaterialPageRoute(builder: (context) => CalendarPage(title:"Calendar",now:DateTime.parse(document['notificationDate'].toDate().toString())),
+  //                              ));
+  // }
+  //                             ,
+  //                             child: Padding(
+  //                               padding: EdgeInsets.all(8),
+  //                               child: Column(
+  //                                 children: <Widget>[
+  //                                   Icon(
+  //                                     Icons.notification,
+  //                                     color: AppColors.qiblaBlue,
+  //                                     size: ScreenUtil().setHeight(72),
+  //                                   ),
                                     
-                                    Text(
-                                      DateTime.parse(document['eventDate'].toDate().toString()).toString(),
-                                    //  timeago.format(document["eventDate"].toDate()),
+  //                                   Text(
+  //                                     DateTime.parse(document['notificationDate'].toDate().toString()).toString(),
+  //                                   //  timeago.format(document["notificationDate"].toDate()),
                                     
-                                      //DateFormat.yMMMMd()
-                                        //  .format(DateTime.now()),
-                                      style: TextStyle(fontSize: 20),
-                                      textAlign: TextAlign.center,
+  //                                     //DateFormat.yMMMMd()
+  //                                       //  .format(DateTime.now()),
+  //                                     style: TextStyle(fontSize: 20),
+  //                                     textAlign: TextAlign.center,
                                     
-                                    )
+  //                                   )
                                   
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+  //                                 ],
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ),
                                         ClipRect(
                                           child: Align(
                                               alignment: Alignment.topCenter,
@@ -161,6 +166,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                                       ])),
                             ),
                           ),
+                       
                         ),
                         );
   }
@@ -172,13 +178,13 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
       resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
       appBar: AppBar(
-        title:  Text("Events"),
+        title:  Text("Notifications"),
       ),
       body: 
         StreamBuilder(
-          stream: Firestore.instance.collection("events").snapshots(),
+          stream: Firestore.instance.collection("notifications").snapshots(),
           builder: (context, snapshot) { 
-           if (!snapshot.hasData) return Text("Events are loading...");
+           if (!snapshot.hasData) return Text("Notifications are loading...");
             return GridView.builder(
                 itemCount: snapshot.data.documents.length,
                scrollDirection: Axis.vertical,

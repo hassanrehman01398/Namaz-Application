@@ -40,6 +40,7 @@ dependencies:
   url_launcher: ^5.4.10
   geolocator: ^5.3.0
   hijri_picker: ^1.0.0
+  timeago: ^2.0.26
   table_calendar: ^2.2.3
   equatable: ^1.1.0
   flutter_bloc: ^3.2.0
