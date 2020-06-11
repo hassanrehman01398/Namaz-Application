@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:hijri_picker/hijri_picker.dart';
+import 'package:namaz/calendarpage.dart';
 import 'package:namaz/donate.dart';
 import 'package:namaz/dua.dart';
 import 'package:namaz/event.dart';
@@ -358,6 +359,36 @@ class _HomeViewState extends State<HomeView> {
                                       size: ScreenUtil().setHeight(72),
                                     ),
                                     Text(
+                                      '${selectedDate.fullDate()}',
+                                      style: TextStyle(fontSize: 20),
+                                      textAlign: TextAlign.center,
+                                    
+                                    )
+                                  
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: InkWell(
+                              onTap: () {
+                               Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => CalendarPage(title:"Calendar"),
+                               ));
+  }
+                              ,
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.event,
+                                      color: AppColors.qiblaBlue,
+                                      size: ScreenUtil().setHeight(72),
+                                    ),
+                                    Text(
                                       DateFormat.yMMMMd()
                                           .format(DateTime.now()),
                                       style: TextStyle(fontSize: 20),
@@ -566,7 +597,7 @@ class _HomeViewState extends State<HomeView> {
                 iconSize: 50,
                 color: Colors.white,
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Donate()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new AboutTab()));
                 },
               ),
             ),
@@ -598,25 +629,25 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
 
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Event()));
-                },
-                child: ListTile(
-                  title: Text('Events'),
-                  leading: Icon(Icons.event, color: Colors.black,),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(context, MaterialPageRoute(builder: (context) => new Event()));
+              //   },
+              //   child: ListTile(
+              //     title: Text('Events'),
+              //     leading: Icon(Icons.event, color: Colors.black,),
+              //   ),
+              // ),
 
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Service()));
-                },
-                child: ListTile(
-                  title: Text('Services'),
-                  leading: Icon(Icons.event_note, color: Colors.black,),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(context, MaterialPageRoute(builder: (context) => new Service()));
+              //   },
+              //   child: ListTile(
+              //     title: Text('Services'),
+              //     leading: Icon(Icons.event_note, color: Colors.black,),
+              //   ),
+              // ),
 
               InkWell(
                 onTap: () {
@@ -653,14 +684,14 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
 
-              InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('Subscribe to Newsletters'),
-                  leading: Icon(
-                    Icons.notifications_active, color: Colors.black,),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {},
+              //   child: ListTile(
+              //     title: Text('Subscribe to Newsletters'),
+              //     leading: Icon(
+              //       Icons.notifications_active, color: Colors.black,),
+              //   ),
+              // ),
 
               InkWell(
                 onTap: () {},
@@ -670,23 +701,23 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
 
-              InkWell(
-                onTap: () {},
-                child: ListTile(
-                  title: Text('Business Directory'),
-                  leading: Icon(Icons.assignment, color: Colors.black,),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {},
+              //   child: ListTile(
+              //     title: Text('Business Directory'),
+              //     leading: Icon(Icons.assignment, color: Colors.black,),
+              //   ),
+              // ),
 
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Setting()));
-                },
-                child: ListTile(
-                  title: Text('Settings'),
-                  leading: Icon(Icons.settings, color: Colors.black,),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(context, MaterialPageRoute(builder: (context) => new Setting()));
+              //   },
+              //   child: ListTile(
+              //     title: Text('Settings'),
+              //     leading: Icon(Icons.settings, color: Colors.black,),
+              //   ),
+         //     ),
             ],
           ),
         ),
@@ -714,6 +745,8 @@ class _HomeViewState extends State<HomeView> {
   Future<Null> _selectDate(BuildContext context) async {
     final ummAlquraCalendar picked = await showHijriDatePicker(
       context: context,
+    //  events:,
+
       initialDate: selectedDate,
       lastDate: new ummAlquraCalendar()
         ..hYear = 1442
@@ -725,6 +758,7 @@ class _HomeViewState extends State<HomeView> {
         ..hDay = 25,
       initialDatePickerMode: DatePickerMode.day,
     );
+    
     print(picked);
     if (picked != null) setState(() {
       selectedDate = picked;
