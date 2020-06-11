@@ -35,6 +35,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
+
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
     
   ummAlquraCalendar selectedDate = new ummAlquraCalendar.now();
@@ -317,239 +319,263 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Roeyat E Hilal Comite'),
+        title: Text('Roeyat E Hilal Comite',style: TextStyle(color: Colors.white),),
+        backgroundColor: Colors.green,
       ),
-      body: BlocBuilder(
-        bloc: _locationBloc,
-        builder: (context, state) {
-          if (state is LocationStateInit) {
-            return Center(
-              child: CupertinoActivityIndicator(),
-            );
-          }
-          if (state is LocationStateError) {
-            return Center(
-              child: Text(state.exception.toString()),
-            );
-          }
-          if (state is LocationStateDefined) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  state.userLocation.localName,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                BlocBuilder(
-                  bloc: _prayerTimeBloc,
-                  builder: (context, prayerState) {
-                    if (prayerState is PrayerTimeLoaded) {
-                      return Column(
-                        children: <Widget>[
-                          Card(
-                            child: InkWell(
-                              onTap: () => _selectDate(context),
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.event,
-                                      color: AppColors.qiblaBlue,
-                                      size: ScreenUtil().setHeight(72),
-                                    ),
-                                    Text(
-                                      '${selectedDate.fullDate()}',
-                                      style: TextStyle(fontSize: 20),
-                                      textAlign: TextAlign.center,
-                                    
-                                    )
-                                  
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Card(
-                            child: InkWell(
-                              onTap: () {
-                               Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => CalendarPage(title:"Calendar"),
-                               ));
-  }
-                              ,
-                              child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.event,
-                                      color: AppColors.qiblaBlue,
-                                      size: ScreenUtil().setHeight(72),
-                                    ),
-                                    Text(
-                                      DateFormat.yMMMMd()
-                                          .format(DateTime.now()),
-                                      style: TextStyle(fontSize: 20),
-                                      textAlign: TextAlign.center,
-                                    
-                                    )
-                                  
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Card(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Text('Sunrise'),
-                                            Text(
-                                              prayerState.model.sunrise,
-                                              style: TextStyle(
-                                                  color: Colors.orangeAccent),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Card(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: <Widget>[
-                                            
-                // leading: Icon(Icons.wb_sunny, color: Colors.orangeAccent,),
-                                            Text('Sunset'),
-                                            Icon(Icons.wb_sunny,color: Colors.grey,),
-                                            Text(
-                                              prayerState.model.sunset,
-                                              style: TextStyle(
-                                                  color: Colors.orangeAccent),
-                                                
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Card(
+      body: SingleChildScrollView(
+        child: BlocBuilder(
+          bloc: _locationBloc,
+          builder: (context, state) {
+            if (state is LocationStateInit) {
+              return Center(
+                child: CupertinoActivityIndicator(),
+              );
+            }
+            if (state is LocationStateError) {
+              return Center(
+                child: Text(state.exception.toString()),
+              );
+            }
+            if (state is LocationStateDefined) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  image_coursel,
+                  Text(
+                    state.userLocation.localName,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                  BlocBuilder(
+                    bloc: _prayerTimeBloc,
+                    builder: (context, prayerState) {
+                      if (prayerState is PrayerTimeLoaded) {
+                        return Column(
+                          children: <Widget>[
+                           // image_coursel,
+                            Card(
+                              child: InkWell(
+                                onTap: () => _selectDate(context),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8),
                                   child: Column(
                                     children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text("Fajr"),
-                                              Icon(Icons.wb_sunny,color: Colors.grey,),
-                                        
-                                          Text(
-                                            prayerState.model.fajr,
-                                            style: TextStyle(
-                                                color: Colors.orangeAccent),
-                                          )
-                                        ],
+                                      Icon(
+                                        Icons.event,
+                                        color: AppColors.qiblaBlue,
+                                        size: ScreenUtil().setHeight(72),
                                       ),
-                                      Divider(),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text("Dhuhr"),
-                                              Icon(Icons.wb_sunny,color: Colors.orangeAccent,),
-                                        
-                                          Text(
-                                            prayerState.model.dhuhr,
-                                            style: TextStyle(
-                                                color: Colors.orangeAccent),
-                                          )
-                                        ],
-                                      ),
-                                      Divider(),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text("Asr"),
-                                              Icon(Icons.wb_sunny,color: Colors.orangeAccent,),
-                                        
-                                          Text(
-                                            prayerState.model.asr,
-                                            style: TextStyle(
-                                                color: Colors.orangeAccent),
-                                          )
-                                        ],
-                                      ),
-                                      Divider(),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text("Maghrib"),
-                                              Icon(Icons.wb_sunny,color: Colors.orangeAccent,),
-                                        
-                                          Text(
-                                            prayerState.model.maghrib,
-                                            style: TextStyle(
-                                                color: Colors.orangeAccent),
-                                          )
-                                        ],
-                                      ),
-                                      Divider(),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Text("Isha"),
-                                              Icon(Icons.wb_sunny,color: Colors.orangeAccent,),
-                                        
-                                          Text(
-                                            prayerState.model.isha,
-                                            style: TextStyle(
-                                                color: Colors.orangeAccent),
-                                          )
-                                        ],
-                                      ),
+                                      Text(
+                                        '${selectedDate.fullDate()}',
+                                        style: TextStyle(fontSize: 20),
+                                        textAlign: TextAlign.center,
+
+                                      )
+
                                     ],
                                   ),
                                 ),
                               ),
-                            ],
-                          )
-                        ],
-                      );
-                    } else if (prayerState is PrayerTimeError) {
-                      return Text('something went wrong');
-                    } else
-                      return CupertinoActivityIndicator();
-                  },
-                ),
-                SizedBox(
-                  height: ScreenUtil().setHeight(200),
-                  width: MediaQuery.of(context).size.width,
-                )
-              ],
-            );
-          }
-          return null;
-        },
+                            ),
+                            Card(
+                              child: InkWell(
+                                onTap: () {
+                                 Navigator.push(
+                             context,
+                        MaterialPageRoute(builder: (context) => CalendarPage(title:"Calendar"),
+                                 ));
+  }
+                                ,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 80.0,right: 80.0,top: 8.0,bottom: 8.0),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.event,
+                                        color: AppColors.qiblaBlue,
+                                        size: ScreenUtil().setHeight(72),
+                                      ),
+                                      Text(
+                                        DateFormat.yMMMMd()
+                                            .format(DateTime.now()),
+                                        style: TextStyle(fontSize: 20),
+                                        textAlign: TextAlign.center,
+
+                                      )
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text('Sunrise'),
+                                              Icon(Icons.wb_sunny,color: Colors.orange,),
+                                              Text(
+                                                prayerState.model.sunrise,
+                                                style: TextStyle(
+                                                    color: Colors.orangeAccent),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            children: <Widget>[
+
+                  // leading: Icon(Icons.wb_sunny, color: Colors.orangeAccent,),
+                                              Text('Sunset'),
+                                              Icon(Icons.wb_sunny,color: Colors.grey,),
+                                              Text(
+                                                prayerState.model.sunset,
+                                                style: TextStyle(
+                                                    color: Colors.orangeAccent),
+
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Icon(Icons.wb_sunny,color: Colors.grey,),
+                                            Text("Fajr"),
+
+
+                                            Text(
+                                              prayerState.model.fajr,
+                                              style: TextStyle(
+                                                  color: Colors.orangeAccent),
+                                            ),
+
+                                          ],
+                                        ),
+                                        Divider(),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 4.0),
+                                              child: Icon(Icons.wb_sunny,color: Colors.orangeAccent,),
+                                            ),
+                                            Text("Dhuhr"),
+
+
+                                            Text(
+                                              prayerState.model.dhuhr,
+                                              style: TextStyle(
+                                                  color: Colors.orangeAccent),
+                                            ),
+
+                                          ],
+                                        ),
+                                        Divider(),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(right:2.0),
+                                              child: Icon(Icons.wb_sunny,color: Colors.orangeAccent,),
+                                            ),
+                                            Text("Asr"),
+
+
+                                            Text(
+                                              prayerState.model.asr,
+                                              style: TextStyle(
+                                                  color: Colors.orangeAccent),
+                                            ),
+
+                                          ],
+                                        ),
+                                        Divider(),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(left:9.0),
+                                              child: Icon(Icons.wb_sunny,color: Colors.orangeAccent,),
+                                            ),
+                                            Text("Maghrib"),
+
+
+                                            Text(
+                                              prayerState.model.maghrib,
+                                              style: TextStyle(
+                                                  color: Colors.orangeAccent),
+                                            ),
+
+                                          ],
+                                        ),
+                                        Divider(),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Icon(Icons.wb_sunny,color: Colors.orangeAccent,),
+                                            Text("Isha"),
+
+
+                                            Text(
+                                              prayerState.model.isha,
+                                              style: TextStyle(
+                                                  color: Colors.orangeAccent),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        );
+                      } else if (prayerState is PrayerTimeError) {
+                        return Text('something went wrong');
+                      } else
+                        return CupertinoActivityIndicator();
+                    },
+                  ),
+                  SizedBox(
+                    height: ScreenUtil().setHeight(200),
+                    width: MediaQuery.of(context).size.width,
+                  )
+                ],
+              );
+            }
+            return null;
+          },
+        ),
       ),
    
         bottomNavigationBar: new BottomAppBar(
@@ -566,7 +592,7 @@ class _HomeViewState extends State<HomeView> {
                 iconSize: 50,
                 color: Colors.white,
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new HomeView()));
+                //  Navigator.push(context, MaterialPageRoute(builder: (context) => new HomeView()));
                 },
               ),
             ),
@@ -609,24 +635,29 @@ class _HomeViewState extends State<HomeView> {
         drawer: new Drawer(
           child: new ListView(
             children: <Widget>[
-              // body
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Donate()));
-                },
-                child: ListTile(
-                  title: Text('Donate'),
-                  leading: Icon(Icons.accessibility, color: Colors.black,),
-                ),
+              Container(
+                height: 120.0,
+                color: Colors.green,
+                child: Center(child: Text("Roeyat E Hilal Comite",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900,fontSize: 20.0),)),
               ),
+              // body
+//              InkWell(
+//                onTap: () {
+//                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Donate()));
+//                },
+//                child: ListTile(
+//                  title: Text('Donate'),
+//                  leading: Icon(Icons.accessibility, color: Colors.black,),
+//                ),
+//              ),
 
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new HomeView()));
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => new HomeView()));
                 },
                 child: ListTile(
-                  title: Text('Home'),
-                  leading: Icon(Icons.home, color: Colors.black,),
+                  title: Text('Home',style: TextStyle(color: Colors.green),),
+                  leading: Icon(Icons.home, color: Colors.green,),
                 ),
               ),
 
@@ -635,8 +666,8 @@ class _HomeViewState extends State<HomeView> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => new Event()));
                 },
                 child: ListTile(
-                  title: Text('Events'),
-                  leading: Icon(Icons.event, color: Colors.black,),
+                  title: Text('Events',style: TextStyle(color: Colors.green),),
+                  leading: Icon(Icons.event, color: Colors.green,),
                 ),
               ),
 
@@ -650,38 +681,16 @@ class _HomeViewState extends State<HomeView> {
               //   ),
               // ),
 
-              InkWell(
-                onTap: () {
-       Navigator.push(context, MaterialPageRoute(builder: (context) => new AboutTab()));
-           
 
-                },
-                child: ListTile(
-                  title: Text('About Us'),
-                  leading: Icon(Icons.account_box, color: Colors.black,),
-                ),
-              ),
-
-              InkWell(
-                onTap: () {
-       Navigator.push(context, MaterialPageRoute(builder: (context) => new ContactTab()));
-           
-
-                },
-                child: ListTile(
-                  title: Text('Contact Us'),
-                  leading: Icon(Icons.mail, color: Colors.black,),
-                ),
-              ),
 
               InkWell(
                 onTap: () {
                      Navigator.push(context, MaterialPageRoute(builder: (context) => DuaPage()));
-               
+
                 },
                 child: ListTile(
-                  title: Text('Duas'),
-                  leading: Icon(Icons.star_half, color: Colors.black,),
+                  title: Text('Duas',style: TextStyle(color: Colors.green),),
+                  leading: Icon(Icons.star_half, color: Colors.green,),
                 ),
               ),
 
@@ -697,12 +706,36 @@ class _HomeViewState extends State<HomeView> {
               InkWell(
                 onTap: () {
  Navigator.push(context, MaterialPageRoute(builder: (context) => Notification1()));
-               
+
 
                 },
                 child: ListTile(
-                  title: Text('Announcements'),
-                  leading: Icon(Icons.message, color: Colors.black,),
+                  title: Text('Announcements',style: TextStyle(color: Colors.green),),
+                  leading: Icon(Icons.message, color: Colors.green,),
+                ),
+              ),
+              Divider(color: Colors.green,),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new AboutTab()));
+
+
+                },
+                child: ListTile(
+                  title: Text('About Us'),
+                  leading: Icon(Icons.account_box, color: Colors.black,),
+                ),
+              ),
+
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new ContactTab()));
+
+
+                },
+                child: ListTile(
+                  title: Text('Contact Us'),
+                  leading: Icon(Icons.mail, color: Colors.black,),
                 ),
               ),
 

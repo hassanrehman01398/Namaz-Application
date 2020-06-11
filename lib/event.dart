@@ -17,7 +17,9 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import 'about.dart';
 import 'calendarpage.dart';
+import 'notification.dart';
 class Event extends StatefulWidget {
   @override
   _EventState createState() => new _EventState();
@@ -172,7 +174,11 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
       resizeToAvoidBottomPadding: false,
       key: _scaffoldKey,
       appBar: AppBar(
-        title:  Text("Events"),
+        title:  Padding(
+          padding: const EdgeInsets.all(80.0),
+          child: Text("Events",style: TextStyle(color: Colors.white),),
+        ),
+        backgroundColor: Colors.green,
       ),
       body: 
         StreamBuilder(
@@ -192,8 +198,61 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                 itemBuilder: (context, index) => _buildListItem(context, snapshot.data.documents[index])
               );
         }
-      )
+      ),
+      bottomNavigationBar: new BottomAppBar(
+      color: Colors.green,
+      child: new Container(
+//            margin: const EdgeInsets.only(left: 70.0, right: 70.0),
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Expanded(
+              child: new IconButton(
+                icon: new Icon(Icons.home),
+                iconSize: 50,
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new HomeView()));
+                },
+              ),
+            ),
+            Expanded(
+              child: new IconButton(
+                icon: new Icon(Icons.event_note),
+                iconSize: 50,
+                color: Colors.white,
+                onPressed: () {
+                 // Navigator.push(context, MaterialPageRoute(builder: (context) => new Event()));
+                },
+              ),
+            ),
 
+            Expanded(
+              child: new IconButton(
+                icon: new Icon(Icons.notifications),
+                iconSize: 50,
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new Notification1()));
+                },
+              ),
+            ),
+
+            Expanded(
+              child: new IconButton(
+                icon: new Icon(Icons.priority_high),
+                iconSize: 50,
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => new AboutTab()));
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
 
     );
   }
