@@ -108,7 +108,11 @@ _selectedDay =widget.now;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Padding(
+          padding: const EdgeInsets.all(70.0),
+          child: Text(widget.title,style: TextStyle(color: Colors.white),),
+        ),
+
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
@@ -298,41 +302,53 @@ dt=widget.now;
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            RaisedButton(
-              child: Text('Month'),
-              onPressed: () {
-                setState(() {
-                  _calendarController.setCalendarFormat(CalendarFormat.month);
-                });
-              },
+            ButtonTheme(
+              buttonColor: Colors.orange,
+              child: RaisedButton(
+                child: Text('Month',style: TextStyle(color: Colors.white),),
+                onPressed: () {
+                  setState(() {
+                    _calendarController.setCalendarFormat(CalendarFormat.month);
+                  });
+                },
+              ),
             ),
-            RaisedButton(
-              child: Text('2 weeks'),
-              onPressed: () {
-                setState(() {
-                  _calendarController.setCalendarFormat(CalendarFormat.twoWeeks);
-                });
-              },
+            ButtonTheme(
+              buttonColor: Colors.orange,
+              child: RaisedButton(
+                child: Text('2 weeks',style: TextStyle(color: Colors.white),),
+                onPressed: () {
+                  setState(() {
+                    _calendarController.setCalendarFormat(CalendarFormat.twoWeeks);
+                  });
+                },
+              ),
             ),
-            RaisedButton(
-              child: Text('Week'),
-              onPressed: () {
-                setState(() {
-                  _calendarController.setCalendarFormat(CalendarFormat.week);
-                });
-              },
+            ButtonTheme(
+              buttonColor: Colors.orange,
+              child: RaisedButton(
+                child: Text('Week',style: TextStyle(color: Colors.white),),
+                onPressed: () {
+                  setState(() {
+                    _calendarController.setCalendarFormat(CalendarFormat.week);
+                  });
+                },
+              ),
             ),
           ],
         ),
         const SizedBox(height: 8.0),
-        RaisedButton(
-          child: Text('Set day ${dateTime.day}-${dateTime.month}-${dateTime.year}'),
-          onPressed: () {
-            _calendarController.setSelectedDay(
-              DateTime(dateTime.year, dateTime.month, dateTime.day),
-              runCallback: true,
-            );
-          },
+        ButtonTheme(
+          buttonColor: Colors.orange,
+          child: RaisedButton(
+            child: Text('Set day ${dateTime.day}-${dateTime.month}-${dateTime.year}',style: TextStyle(color: Colors.white),),
+            onPressed: () {
+              _calendarController.setSelectedDay(
+                DateTime(dateTime.year, dateTime.month, dateTime.day),
+                runCallback: true,
+              );
+            },
+          ),
         ),
       ],
     );

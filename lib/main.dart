@@ -31,8 +31,10 @@ void main(){
           ),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              primaryColor: AppColors.neutral,
+              primarySwatch: Colors.green,
+              primaryColor: Colors.green,
               highlightColor: Colors.transparent,
               textTheme: TextTheme(
                   body1: TextStyle(
@@ -43,7 +45,7 @@ void main(){
                   )),
               primaryTextTheme:
                   TextTheme(title: TextStyle(color: Colors.black54)),
-              appBarTheme: AppBarTheme(elevation: 0, color: Colors.grey[50])),
+              appBarTheme: AppBarTheme(elevation: 0, color: Colors.green)),
                 home: HomeView(),
    ),
       ),
