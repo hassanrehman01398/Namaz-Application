@@ -91,7 +91,9 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     // );
   return SingleChildScrollView (
                         child : Center(
+                          
                           child: Card(
+                            
                             child: InkWell(
                               splashColor: Colors.blue.withAlpha(30),
                         //       onTap: () {
@@ -102,6 +104,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                         //       },
                               child: Container(
                                   child: Column(
+                                    
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         
@@ -110,7 +113,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                                       style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold)
                                         ),
                                          Text(document['notificationDescription'],
-                                       style: TextStyle(fontSize: 25)
+                                       style: TextStyle(fontSize: 20)
 
                                         ),
   //                                       Card(
@@ -191,15 +194,15 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
           stream: Firestore.instance.collection("notifications").snapshots(),
           builder: (context, snapshot) { 
            if (!snapshot.hasData) return Text("Notifications are loading...");
-            return GridView.builder(
+            return ListView.builder(
                 itemCount: snapshot.data.documents.length,
                scrollDirection: Axis.vertical,
               
                       shrinkWrap: true,
                       primary: false,
-                      gridDelegate:
-                      new SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1),
+                      // gridDelegate:
+                      // new SliverGridDelegateWithFixedCrossAxisCount(
+                      //     crossAxisCount: 1),
                        
                 itemBuilder: (context, index) => _buildListItem(context, snapshot.data.documents[index])
               );

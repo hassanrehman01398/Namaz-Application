@@ -10,9 +10,10 @@ final Map<DateTime, List> _holidays = {
 };
 
 class CalendarPage extends StatefulWidget {
-  CalendarPage({Key key, this.title,this.now}) : super(key: key);
+  CalendarPage({Key key, this.title,this.now,this.title_event}) : super(key: key);
 
   final String title;
+  final String title_event;
   final DateTime now;
 
   @override
@@ -39,28 +40,28 @@ class _CalendarPageState extends State<CalendarPage> with TickerProviderStateMix
       
 print("hassan");
      
-  print(DateTime.now());
+  //rint(DateTime.now());
      print(widget.now);
 
 _selectedDay =widget.now;
     }
 
     _events = {
-      _selectedDay.subtract(Duration(days: 30)): ['Event A0', 'Event B0', 'Event C0'],
-      _selectedDay.subtract(Duration(days: 27)): ['Event A1'],
-      _selectedDay.subtract(Duration(days: 20)): ['Event A2', 'Event B2', 'Event C2', 'Event D2'],
-      _selectedDay.subtract(Duration(days: 16)): ['Event A3', 'Event B3'],
-      _selectedDay.subtract(Duration(days: 10)): ['Event A4', 'Event B4', 'Event C4'],
-      _selectedDay.subtract(Duration(days: 4)): ['Event A5', 'Event B5', 'Event C5'],
-      _selectedDay.subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
-      _selectedDay: ['Event A7', 'Event B7', 'Event C7', 'Event D7'],
-      _selectedDay.add(Duration(days: 1)): ['Event A8', 'Event B8', 'Event C8', 'Event D8'],
-      _selectedDay.add(Duration(days: 3)): Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
-      _selectedDay.add(Duration(days: 7)): ['Event A10', 'Event B10', 'Event C10'],
-      _selectedDay.add(Duration(days: 11)): ['Event A11', 'Event B11'],
-      _selectedDay.add(Duration(days: 17)): ['Event A12', 'Event B12', 'Event C12', 'Event D12'],
-      _selectedDay.add(Duration(days: 22)): ['Event A13', 'Event B13'],
-      _selectedDay.add(Duration(days: 26)): ['Event A14', 'Event B14', 'Event C14'],
+      // _selectedDay.subtract(Duration(days: 30)): ['Event A0', 'Event B0', 'Event C0'],
+      // _selectedDay.subtract(Duration(days: 27)): ['Event A1'],
+      // _selectedDay.subtract(Duration(days: 20)): ['Event A2', 'Event B2', 'Event C2', 'Event D2'],
+      // _selectedDay.subtract(Duration(days: 16)): ['Event A3', 'Event B3'],
+      // _selectedDay.subtract(Duration(days: 10)): ['Event A4', 'Event B4', 'Event C4'],
+      // _selectedDay.subtract(Duration(days: 4)): ['Event A5', 'Event B5', 'Event C5'],
+      // _selectedDay.subtract(Duration(days: 2)): ['Event A6', 'Event B6'],
+      _selectedDay: [widget.title_event],
+     // _selectedDay.add(Duration(days: 1)): [widget.title_event],
+     // _selectedDay.add(Duration(days: 3)): Set.from(['Event A9', 'Event A9', 'Event B9']).toList(),
+      //_selectedDay.add(Duration(days: 7)): ['Event A10', 'Event B10', 'Event C10'],
+    //  _selectedDay.add(Duration(days: 11)): ['Event A11', 'Event B11'],
+     // _selectedDay.add(Duration(days: 17)): ['Event A12', 'Event B12', 'Event C12', 'Event D12'],
+   //   _selectedDay.add(Duration(days: 22)): ['Event A13', 'Event B13'],
+     // _selectedDay.add(Duration(days: 26)): ['Event A14', 'Event B14', 'Event C14'],
     };
 
     _selectedEvents = _events[_selectedDay] ?? [];
@@ -83,10 +84,7 @@ _selectedDay =widget.now;
 
   void _onDaySelected(DateTime day, List events) {
     print('CALLBACK: _onDaySelected');
-    print(day);
-    if(widget.now!=null){
-      day=widget.now;
-    }
+    
     setState(() {
       _selectedEvents = events;
     });
@@ -135,6 +133,8 @@ _selectedDay =widget.now;
     print("usman1");
     DateTime dt=DateTime.now();
     if(widget.now!=null){
+      print('suleman');
+      print(widget.now);
 dt=widget.now;
 
     }
@@ -144,15 +144,15 @@ dt=widget.now;
       holidays: _holidays,
       startingDayOfWeek: StartingDayOfWeek.monday,
       calendarStyle: CalendarStyle(
-        selectedColor: Colors.deepOrange[400],
-        todayColor: Colors.deepOrange[200],
-        markersColor: Colors.brown[700],
+        selectedColor: Colors.green,
+        todayColor: Colors.greenAccent,
+        markersColor: Colors.orange,
         outsideDaysVisible: false,
       ),
       headerStyle: HeaderStyle(
         formatButtonTextStyle: TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
         formatButtonDecoration: BoxDecoration(
-          color: Colors.deepOrange[400],
+          color: Colors.green,
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
@@ -198,7 +198,7 @@ dt=widget.now;
             child: Container(
               margin: const EdgeInsets.all(4.0),
               padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-              color: Colors.deepOrange[300],
+              color: Colors.green,
               width: 100,
               height: 100,
               child: Text(
@@ -216,7 +216,7 @@ dt=widget.now;
           return Container(
             margin: const EdgeInsets.all(4.0),
             padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-            color: Colors.amber[400],
+            color: Colors.green,
             width: 100,
             height: 100,
             child: Text(
@@ -262,7 +262,6 @@ dt=widget.now;
   }
 
   Widget _buildEventsMarker(DateTime date, List events) {
-    print("mustafaa");
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       decoration: BoxDecoration(
@@ -294,8 +293,10 @@ dt=widget.now;
   }
 
   Widget _buildButtons() {
-    final dateTime = _events.keys.elementAt(_events.length - 2);
-
+ 
+  //  try{
+ final dateTime = _events.keys.elementAt(_events.length - 1);
+  
     return Column(
       children: <Widget>[
         Row(
@@ -303,7 +304,7 @@ dt=widget.now;
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             ButtonTheme(
-              buttonColor: Colors.orange,
+              buttonColor: Colors.green,
               child: RaisedButton(
                 child: Text('Month',style: TextStyle(color: Colors.white),),
                 onPressed: () {
@@ -314,7 +315,7 @@ dt=widget.now;
               ),
             ),
             ButtonTheme(
-              buttonColor: Colors.orange,
+              buttonColor: Colors.green,
               child: RaisedButton(
                 child: Text('2 weeks',style: TextStyle(color: Colors.white),),
                 onPressed: () {
@@ -325,7 +326,7 @@ dt=widget.now;
               ),
             ),
             ButtonTheme(
-              buttonColor: Colors.orange,
+              buttonColor: Colors.green,
               child: RaisedButton(
                 child: Text('Week',style: TextStyle(color: Colors.white),),
                 onPressed: () {
@@ -339,7 +340,7 @@ dt=widget.now;
         ),
         const SizedBox(height: 8.0),
         ButtonTheme(
-          buttonColor: Colors.orange,
+          buttonColor: Colors.green,
           child: RaisedButton(
             child: Text('Set day ${dateTime.day}-${dateTime.month}-${dateTime.year}',style: TextStyle(color: Colors.white),),
             onPressed: () {

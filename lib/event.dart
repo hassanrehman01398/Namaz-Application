@@ -113,7 +113,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                               onTap: () {
                                Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => CalendarPage(title:"Calendar",now:DateTime.parse(document['eventDate'].toDate().toString())),
+    MaterialPageRoute(builder: (context) => CalendarPage(title:"Calendar",now:DateTime.parse(document['eventDate']),title_event: document['eventName']),
                                ));
   }
                               ,
@@ -128,7 +128,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                                     ),
                                     
                                     Text(
-                                      DateTime.parse(document['eventDate'].toDate().toString()).toString(),
+                                      DateTime.parse(document['eventDate']).toString(),
                                     //  timeago.format(document["eventDate"].toDate()),
                                     
                                       //DateFormat.yMMMMd()
@@ -142,8 +142,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                                 ),
                               ),
                             ),
-                          ),
-                                        ClipRect(
+                          ),ClipRect(
                                           child: Align(
                                               alignment: Alignment.topCenter,
                                               heightFactor:MediaQuery.of(context).size.height * 0.65,
@@ -160,6 +159,7 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
                                               ),
                                               
                                         ),
+                                       
                                       ])),
                             ),
                           ),
@@ -185,15 +185,15 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
           stream: Firestore.instance.collection("events").snapshots(),
           builder: (context, snapshot) { 
            if (!snapshot.hasData) return Text("Events are loading...");
-            return GridView.builder(
+            return ListView.builder(
                 itemCount: snapshot.data.documents.length,
                scrollDirection: Axis.vertical,
               
                       shrinkWrap: true,
                       primary: false,
-                      gridDelegate:
-                      new SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1),
+                      // gridDelegate:
+                      // new SliverGridDelegateWithFixedCrossAxisCount(
+                      //     crossAxisCount: 1),
                        
                 itemBuilder: (context, index) => _buildListItem(context, snapshot.data.documents[index])
               );

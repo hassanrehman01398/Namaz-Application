@@ -25,6 +25,8 @@ class Assets{
   static const vdrone = 'assets/works/vdrone.png';
   
   static const hassan='assets/hassan.jpg';
+  
+  static const mfs='assets/mfs.jpg';
   //to show logo
   static const machliwala_icon='assets/works/icon.jpg';
   
