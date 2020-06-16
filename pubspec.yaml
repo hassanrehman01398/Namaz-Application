@@ -49,9 +49,16 @@ dependencies:
   intl: ^0.16.1
 
 dev_dependencies:
+  flutter_launcher_icons: 0.7.4
   flutter_test:
     sdk: flutter
-
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "assets/namaz.png"
+  image_path_ios: "assets/namaz.png"
+  adaptive_icon_background: "assets/namaz.png"
+  adaptive_icon_foreground: "assets/namaz.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

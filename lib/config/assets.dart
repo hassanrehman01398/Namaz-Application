@@ -26,6 +26,8 @@ class Assets{
   
   static const hassan='assets/hassan.jpg';
   
+  static const namaz='assets/namaz.png';
+  
   static const mfs='assets/mfs.jpg';
   //to show logo
   static const machliwala_icon='assets/works/icon.jpg';

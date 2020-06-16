@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>613108902255-g7p964srbia0nd9klu9qg9ehtein76u0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.613108902255-g7p964srbia0nd9klu9qg9ehtein76u0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCsyILXKx_tcxE7nXVrjUk2SGeq8D16oz8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>613108902255</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.namaz</string>
+	<key>PROJECT_ID</key>
+	<string>namaz-f637a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>namaz-f637a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:613108902255:ios:9091504e9a4ec0520ae09a</string>
+	<key>DATABASE_URL</key>
+	<string>https://namaz-f637a.firebaseio.com</string>
+</dict>
+</plist>

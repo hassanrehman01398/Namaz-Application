@@ -32,18 +32,18 @@ class AboutTab extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 100,
-                  backgroundImage: Image.asset(Assets.mfs).image,
+                  backgroundImage: Image.asset(Assets.namaz).image,
                 
                   
                 ),
                 SizedBox(
                   height: 2,
                 ),
-                // Text(
-                //   'Muhammad Hasan Ur Rehman',
-                //   textScaleFactor: 4,
-                // ),
-                // // SizedBox(
+                Text(
+                  'Namaz is the most supreme worship which is obligatory upon every Muslim to perform five times a day on their respective timings. With the collaboration of MFS and Ned and with the noble intention to make Muslim Ummah aware about the prayer timings of any location in the world has introduced Prayer Times application for android devices. ',
+                  textScaleFactor: 2,
+                ),
+                // SizedBox(
                 //   height: 2,
                 // ),
                 // Text(
