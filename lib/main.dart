@@ -7,11 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:namaz/donate.dart';
 import 'package:namaz/event.dart';
 import 'package:namaz/home.dart';
+import 'package:namaz/home1.dart';
 import 'package:namaz/res/colors.dart';
 import 'package:namaz/service.dart';
 import 'package:namaz/setting.dart';
 
-import 'bloc/location_bloc/location_bloc.dart';
+import 'bloc/location_bloc/location.dart';
 import 'bloc/prayer_time_bloc/prayer_time_bloc.dart';
 
 void main(){
@@ -46,7 +47,7 @@ void main(){
               primaryTextTheme:
                   TextTheme(title: TextStyle(color: Colors.black54)),
               appBarTheme: AppBarTheme(elevation: 0, color: Colors.green)),
-                home: HomeView(),
+                home: Home1View(),
    ),
       ),
     );

@@ -16,6 +16,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:intl/intl.dart';
 import 'package:namaz/setting.dart';
 import 'about.dart';
+import 'bloc/location_bloc/location.dart';
 import 'bloc/prayer_time_bloc/prayer_time_state.dart';
 import 'contact.dart';
 import 'res/colors.dart';
@@ -24,7 +25,7 @@ import 'package:hijri_picker/hijri_picker.dart';
 
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'bloc/location_bloc/location_bloc.dart';
+
 import 'bloc/location_bloc/location_bloc_state.dart';
 import 'bloc/prayer_time_bloc/prayer_time_bloc.dart';
 import 'bloc/prayer_time_bloc/prayer_time_event.dart';
