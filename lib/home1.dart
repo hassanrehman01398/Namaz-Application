@@ -47,12 +47,19 @@ class _Home1ViewState extends State<Home1View> {
    PrayerTimeBloc _prayerTimeBloc;
   LocationBloc _locationBloc;
   UserLocation _location;
+  String fajar='';
 bool isFetching=false;
 List<String> dataList=[];
   @override
   void initState() {
+    fajar= getChannelName();    
     super.initState();
-      getGroupsData();
+   // print(gettiming().toString());
+// print("hassan champ");
+ // gettiming();
+
+    
+     // getGroupsData();
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> notification) async {
         setState(() {
@@ -141,6 +148,36 @@ print(dataList.toString());
    });
   });
 }
+Stream<namazRecord> gettiming() {
+  return Firestore.instance
+      .collection("namaz_timing")
+      .document("karachi")
+      .get()
+      .then((snapshot) {
+    try {
+       return namazRecord.fromSnapshot(snapshot);
+    
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }).asStream();
+}
+String getChannelName()  {
+ Firestore.instance.collection('namaz_timing').document('karachi').get().then((docSnap) {
+   print("hassu");
+  print( docSnap['timing1'].toString());
+  String channelName = docSnap['timing1'].toString();
+  //assert(channelName is String);
+  return channelName;
+});
+  // if (channelName is String) {
+  //   return channelName;
+  // } else {
+  //   throw ......
+  // } 
+}
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
@@ -384,7 +421,7 @@ print(dataList.toString());
                     state.userLocation.localName,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
-                  BlocBuilder(
+               BlocBuilder(
                     bloc: _prayerTimeBloc,
                     builder: (context, prayerState) {
                       if (prayerState is PrayerTimeLoaded) {
@@ -507,7 +544,7 @@ print(dataList.toString());
 
 
                                             Text(
-                                              dataList[0].toString(),
+                                              gettiming().elementAt(0).toString(),
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             ),
@@ -527,7 +564,7 @@ print(dataList.toString());
 
 
                                             Text(
-                                              dataList[1].toString(),
+                                             gettiming().elementAt(0).toString(),
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             ),
@@ -547,7 +584,7 @@ print(dataList.toString());
 
 
                                             Text(
-                                              dataList[2].toString(),
+                                           gettiming().elementAt(0).toString(),
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             ),
@@ -567,7 +604,7 @@ print(dataList.toString());
 
 
                                             Text(
-                                              dataList[3].toString(),
+                                     gettiming().first.toString(),
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             ),
@@ -584,7 +621,8 @@ print(dataList.toString());
 
 
                                             Text(
-                                            dataList[4].toString(),
+                                            
+                                     fajar ,
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             )
@@ -879,3 +917,49 @@ void _showDatePicker() {
     });
   }
 */
+// List<String> gettiming1;
+class namazRecord {
+  // Header members
+  String timing1="",timing2="",timing3="",timing4="",timing5="";
+  // String name;
+  // int creationTimestamp;
+  // List<int> ratings = new List<int>();
+  // List<String> players = new List<String>();
+  // GameReview gameReview;
+
+  namazRecord.fromSnapshot(DocumentSnapshot snapshot)
+      : 
+        timing1 = snapshot['timing1'],
+        timing2 = snapshot['timing2'],
+        timing3 = snapshot['timing3'],
+        timing4 = snapshot['timing4'],
+        timing5= snapshot['timing5'];
+  // List<String> get_timing(){
+
+  //   gettiming1.add(timing1);
+  //   gettiming1.add(timing2);
+  //   gettiming1.add(timing3);
+  //   gettiming1.add(timing4);
+  //   gettiming1.add(timing5);
+  //   return gettiming1;
+  // }
+      
+String gettiming1(){
+
+  return timing1;
+}
+String gettiming2(){
+
+  return timing2;
+}String gettiming3(){
+
+  return timing3;
+}String gettiming4(){
+
+  return timing4;
+}String gettiming5(){
+
+  return timing5;
+}
+
+}

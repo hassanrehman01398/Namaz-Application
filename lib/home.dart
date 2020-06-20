@@ -1,6 +1,7 @@
 
 
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:namaz/calendarpage.dart';
 import 'package:namaz/donate.dart';
 import 'package:namaz/dua.dart';
 import 'package:namaz/event.dart';
+import 'package:namaz/home.dart';
 import 'package:namaz/notification.dart';
 import 'package:namaz/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -45,10 +47,24 @@ class _HomeViewState extends State<HomeView> {
    PrayerTimeBloc _prayerTimeBloc;
   LocationBloc _locationBloc;
   UserLocation _location;
+   List<String> _locations = []; // Option 2
+  String _selectedLocation; // Option 2
 
+  String fajar='',zuhar='',asar='',magrib='',isha='';
+bool isFetching=false;
+List<String> dataList=[];
   @override
   void initState() {
+     
     super.initState();
+    getGroupsData();
+   // print(dataList.toString());
+     getChannelName();
+   // print(gettiming().toString());
+// print("hassan champ");
+ // gettiming();   
+    
+     // getGroupsData();
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> notification) async {
         setState(() {
@@ -84,6 +100,7 @@ class _HomeViewState extends State<HomeView> {
         });
       },
     );
+    
     _firebaseMessaging.requestNotificationPermissions();
 
     
@@ -102,9 +119,74 @@ class _HomeViewState extends State<HomeView> {
           }
         },
       );
+ 
     //_firebaseMessaging.subscribeToTopic("all");
     
 }
+     getGroupsData() {
+setState(() {
+   isFetching= true;
+});
+Firestore.instance
+    .collection("cities")
+    .getDocuments()
+    .then((QuerySnapshot snapshot) {
+    snapshot.documents.forEach((f) {
+
+      _locations.add(f.data["cityname"].toString());
+//i++;
+    });
+    
+//forEach
+//f.data.values
+//for(int j=0;j<5;j++){}
+
+
+
+  // print(f.data.toString())
+    
+    
+  //  );
+print(_locations.toString());
+   setState(() {
+      isFetching= false;
+   });
+  });
+}
+// Stream<namazRecord> gettiming() {
+//   return Firestore.instance
+//       .collection("namaz_timing")
+//       .document("karachi")
+//       .get()
+//       .then((snapshot) {
+//     try {
+//        return namazRecord.fromSnapshot(snapshot);
+    
+//     } catch (e) {
+//       print(e);
+//       return null;
+//     }
+//   }).asStream();
+// }
+getChannelName() {
+ Firestore.instance.collection('namaz_timing').document(_selectedLocation).get().then((docSnap) {
+   print("hassu");
+  print( docSnap['timing1'].toString());
+fajar = docSnap['timing1'].toString();
+zuhar=docSnap['timing2'].toString();
+asar=docSnap['timing3'].toString();
+magrib=docSnap['timing4'].toString();
+isha=docSnap['timing5'].toString();
+  //assert(channelName is String);
+  //return channelName;
+});
+  // if (channelName is String) {
+  //   return channelName;
+  // } else {
+  //   throw ......
+  // } 
+}
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
@@ -298,6 +380,8 @@ class _HomeViewState extends State<HomeView> {
 
  @override
   Widget build(BuildContext context) {
+ ///   print(dataList.toString());
+
     Widget image_coursel = new Container(
         height: 200.0,
         child: new Carousel(
@@ -343,15 +427,40 @@ class _HomeViewState extends State<HomeView> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   image_coursel,
-                  Text(
-                    state.userLocation.localName,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  BlocBuilder(
-                    bloc: _prayerTimeBloc,
-                    builder: (context, prayerState) {
-                      if (prayerState is PrayerTimeLoaded) {
-                        return Column(
+             DropdownButton(
+            hint: Text('Please choose a location'), // Not necessary for Option 1
+            value: _selectedLocation,
+            onChanged: (newValue) {
+              setState(() {
+                _selectedLocation = newValue;
+              });
+            },
+            items: _locations.map((location) {
+              return DropdownMenuItem(
+                child: new Text(location),
+                value: location,
+              );
+            }).toList(),
+          ),
+              FutureBuilder(
+            future: getChannelName(),
+            builder: (_, snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return CircularProgressIndicator();
+              }else{
+              Future.delayed(const Duration(milliseconds: 0), () {
+  setState(() {
+    // Here you can write your code for open new view
+  });
+});
+//                return Center(
+//                  child: Text("Loading..."),
+//                );
+            //  }
+          // builder: (context, prayerState) {
+                     
+                      //if (prayerState is PrayerTimeLoaded) {
+                        return Column (
                           children: <Widget>[
                            // image_coursel,
                             Card(
@@ -424,7 +533,7 @@ class _HomeViewState extends State<HomeView> {
                                               Text('Sunrise'),
                                               Icon(Icons.wb_sunny,color: Colors.orange,),
                                               Text(
-                                                prayerState.model.sunrise,
+                                             '',  // prayerState.model.sunrise,
                                                 style: TextStyle(
                                                     color: Colors.orangeAccent),
                                               )
@@ -444,7 +553,7 @@ class _HomeViewState extends State<HomeView> {
                                               Text('Sunset'),
                                               Icon(Icons.wb_sunny,color: Colors.grey,),
                                               Text(
-                                                prayerState.model.sunset,
+                                             '',   //prayerState.model.sunset,
                                                 style: TextStyle(
                                                     color: Colors.orangeAccent),
 
@@ -470,7 +579,7 @@ class _HomeViewState extends State<HomeView> {
 
 
                                             Text(
-                                              prayerState.model.fajr,
+                                            fajar,//  gettiming().elementAt(0).toString(),
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             ),
@@ -490,7 +599,7 @@ class _HomeViewState extends State<HomeView> {
 
 
                                             Text(
-                                              prayerState.model.dhuhr,
+                                           zuhar,//  gettiming().elementAt(0).toString(),
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             ),
@@ -510,7 +619,7 @@ class _HomeViewState extends State<HomeView> {
 
 
                                             Text(
-                                              prayerState.model.asr,
+                                         asar,//  gettiming().elementAt(0).toString(),
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             ),
@@ -530,7 +639,7 @@ class _HomeViewState extends State<HomeView> {
 
 
                                             Text(
-                                              prayerState.model.maghrib,
+                                          magrib,//gettiming().first.toString(),
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             ),
@@ -547,7 +656,12 @@ class _HomeViewState extends State<HomeView> {
 
 
                                             Text(
-                                              prayerState.model.isha,
+                                              isha,
+                                          // onChanged: (fajar) {
+             //   print("First text field: $fajar");
+              //},
+              
+                                            // fajar,
                                               style: TextStyle(
                                                   color: Colors.orangeAccent),
                                             )
@@ -561,10 +675,11 @@ class _HomeViewState extends State<HomeView> {
                             )
                           ],
                         );
-                      } else if (prayerState is PrayerTimeError) {
-                        return Text('something went wrong');
-                      } else
-                        return CupertinoActivityIndicator();
+
+                      } //else if (prayerState is PrayerTimeError) {
+                      //  return Text('something went wrong');
+                    //  } else
+                       // return CupertinoActivityIndicator();
                     },
                   ),
                   SizedBox(
@@ -842,3 +957,49 @@ void _showDatePicker() {
     });
   }
 */
+// List<String> gettiming1;
+class namazRecord {
+  // Header members
+  String timing1="",timing2="",timing3="",timing4="",timing5="";
+  // String name;
+  // int creationTimestamp;
+  // List<int> ratings = new List<int>();
+  // List<String> players = new List<String>();
+  // GameReview gameReview;
+
+  namazRecord.fromSnapshot(DocumentSnapshot snapshot)
+      : 
+        timing1 = snapshot['timing1'],
+        timing2 = snapshot['timing2'],
+        timing3 = snapshot['timing3'],
+        timing4 = snapshot['timing4'],
+        timing5= snapshot['timing5'];
+  // List<String> get_timing(){
+
+  //   gettiming1.add(timing1);
+  //   gettiming1.add(timing2);
+  //   gettiming1.add(timing3);
+  //   gettiming1.add(timing4);
+  //   gettiming1.add(timing5);
+  //   return gettiming1;
+  // }
+      
+String gettiming1(){
+
+  return timing1;
+}
+String gettiming2(){
+
+  return timing2;
+}String gettiming3(){
+
+  return timing3;
+}String gettiming4(){
+
+  return timing4;
+}String gettiming5(){
+
+  return timing5;
+}
+
+}

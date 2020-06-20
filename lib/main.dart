@@ -47,7 +47,7 @@ void main(){
               primaryTextTheme:
                   TextTheme(title: TextStyle(color: Colors.black54)),
               appBarTheme: AppBarTheme(elevation: 0, color: Colors.green)),
-                home: Home1View(),
+                home: HomeView(),
    ),
       ),
     );
