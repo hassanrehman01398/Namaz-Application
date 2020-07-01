@@ -2,6 +2,7 @@
 
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart' as firedatabase;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,9 +58,9 @@ List<String> dataList=[];
   void initState() {
      
     super.initState();
-    getGroupsData();
+   getGroupsData();
    // print(dataList.toString());
-     getChannelName();
+  //   getChannelName();
    // print(gettiming().toString());
 // print("hassan champ");
  // gettiming();   
@@ -169,17 +170,76 @@ print(_locations.toString());
 //   }).asStream();
 // }
 getChannelName() {
- Firestore.instance.collection('namaz_timing').document(_selectedLocation).get().then((docSnap) {
-   print("hassu");
-  print( docSnap['timing1'].toString());
-fajar = docSnap['timing1'].toString();
-zuhar=docSnap['timing2'].toString();
-asar=docSnap['timing3'].toString();
-magrib=docSnap['timing4'].toString();
-isha=docSnap['timing5'].toString();
-  //assert(channelName is String);
-  //return channelName;
-});
+
+  DateTime now = DateTime.now();
+//dd-MM-yyyy
+String formattedDate = DateFormat('dd-MM-yyyy').format(now);
+print("formatted date"+formattedDate);
+//Utrecht
+//01-01-2020
+  //DateFormat.
+    //                                    DateFormat.yMMMMd()
+      //           
+    //  d                    //       .format(DateTime.now())
+//var dbRef = firedatabase.FirebaseDatabase.instance.reference().child(_selectedLocation);
+//dbRef.orderByKey().equalTo(formattedDate).once().then((firedatabase.DataSnapshot snapshot){
+  //   if(snapshot.value.isNotEmpty){
+      //   print("_selectedlocation"+_selectedLocation);
+       //  if(_selectedLocation==""){
+          
+          var ref = firedatabase.FirebaseDatabase.instance.reference().child(_selectedLocation).child(formattedDate);
+        //  ref.once().then((value) => null)
+      print(_selectedLocation);
+        print("salma");
+           ref.once().then((firedatabase.DataSnapshot snapshot){
+                 print(snapshot.value); 
+                 snapshot.value.forEach(
+                   (key,values) {
+                   print("salma1");
+                   if(key=="timing1"){
+fajar=values;
+
+                   }
+                   else if(key=="timing2"){
+
+                     zuhar=values;
+                   }
+                   else if(key=="timing3"){
+
+                     asar=values;
+                   }
+                   else if(key=="timing4"){
+
+                     magrib=values;
+                   }
+                   else if(key=="timing5"){
+
+                     isha=values;
+                   }
+                 //  print(key);
+                    //print(values["timing1"]);
+  //print(values["timing2"]);            
+               }
+               );
+           }
+          
+           );
+       //  }
+    //   }
+  // });
+
+
+//  Firestore.instance.collection('namaz_timing').document(_selectedLocation).get().then((docSnap) {
+//    print("hassu");
+//   print( docSnap['timing1'].toString());
+// fajar = docSnap['timing1'].toString();
+// zuhar=docSnap['timing2'].toString();
+// asar=docSnap['timing3'].toString();
+// magrib=docSnap['timing4'].toString();
+// isha=docSnap['timing5'].toString();
+//   //assert(channelName is String);
+//   //return channelName;
+// });
   // if (channelName is String) {
   //   return channelName;
   // } else {
@@ -433,6 +493,7 @@ isha=docSnap['timing5'].toString();
             onChanged: (newValue) {
               setState(() {
                 _selectedLocation = newValue;
+                getChannelName();
               });
             },
             items: _locations.map((location) {
@@ -443,7 +504,7 @@ isha=docSnap['timing5'].toString();
             }).toList(),
           ),
               FutureBuilder(
-            future: getChannelName(),
+           // future: getChannelName(),
             builder: (_, snapshot){
               if(snapshot.connectionState == ConnectionState.waiting){
                 return CircularProgressIndicator();
