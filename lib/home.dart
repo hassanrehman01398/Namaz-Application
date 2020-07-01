@@ -189,13 +189,13 @@ print("formatted date"+formattedDate);
           
           var ref = firedatabase.FirebaseDatabase.instance.reference().child(_selectedLocation).child(formattedDate);
         //  ref.once().then((value) => null)
-      print(_selectedLocation);
-        print("salma");
+      //print(_selectedLocation);
+     //   print("salma");
            ref.once().then((firedatabase.DataSnapshot snapshot){
                  print(snapshot.value); 
                  snapshot.value.forEach(
                    (key,values) {
-                   print("salma1");
+        //           print("salma1");
                    if(key=="timing1"){
 fajar=values;
 
